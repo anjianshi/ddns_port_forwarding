@@ -69,6 +69,7 @@ class Loop(object):
 
         id = self.next_interval_id
         self.intervals[id] = (interval, datetime.now() + timedelta(seconds=interval), callback)
+        self.next_interval_id += 1
         return id
 
     def clear_interval(self, id):
