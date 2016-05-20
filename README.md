@@ -23,14 +23,26 @@ main.py 支持 start、stop、restart、run 命令，其中 run 是前台运行�
 
 ### 注意事项
 
+此脚本只支持通过 ssh key 登录，不支持密码登陆  
+
 外网机器上可能要修改 `/etc/ssh/sshd_config`，添加 `GatewayPorts yes`  
 （如果是 OpenWRT，要修改 `/etc/config/dropbear`，添加 `option GatewayPorts 'on'`）  
 
+同时建议在 `/etc/ssh/sshd_config` 中（或在 `/etc/config/dropbear` 中以对应的格式）加上这两行：
+
+```
+ClientAliveInterval = 30
+ClientAliveCountMax = 2
+```
+
+代表每 30 秒检查一下客户端是否还正常连接着，如果两次检查都失败，则断开连接。
+具体数字可以自己设置。这样客户端意外断线后，远端就不会一直保持着连接了。
+
 如果外网机器是一个 OpenWRT 路由器，要让它允许远程 ssh 登录。  
 详见： http://blog.differentpla.net/blog/2015/05/27/openwrt-ssh-wan  
-（安全起见，最好不要用 22 端口，另外禁止密码登录，改用 ssh key 登录）  
+（安全起见，最好不要用 22 端口，另外禁止密码登录，只用 ssh key 登录）  
 
-如果内网机器的 ssh 客户端是 dropbear（例如这是一个 openwrt 路由器），ssh key 需使用 dropbear 格式  
+如果内网机器的 ssh 客户端是 dropbear（例如这是一个 openwrt 路由器），ssh key 需使用 dropbear 格式（使用 dropbearkey 创建）  
 
 
 ### 参考资料与鸣谢

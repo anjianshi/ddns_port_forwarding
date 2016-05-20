@@ -17,8 +17,9 @@ dns_server = '119.29.29.29'
 
 # DDNS 绑定的域名（必填）
 domain = None
-remote_ssh_user = None  # 通过此用户名连接外网机器。为空则不指定用户名
-remote_ssh_port = 22    # 通过此端口连接外网机器
+remote_ssh_user = None      # 通过此用户名连接外网机器。为空则不指定用户名
+remote_ssh_port = 22        # 通过此端口连接外网机器
+ssh_identity_file = None    # （必填）连接外网机器所用的 ssh private key
 connect_timeout = 5
 
 forwarding_host = 'localhost'

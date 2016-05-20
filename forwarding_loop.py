@@ -71,6 +71,7 @@ class ForwardingLoop(Loop):
             '-N',   # 使用 -N 参数禁止开启命令行，可以避免一些奇怪的关于输出的问题
             '-R', "{}:{}:{}".format(str(config.forwarding_remote_port), config.forwarding_host, str(config.forwarding_local_port)),
             server, "-p", str(config.remote_ssh_port),
+            "-i", config.ssh_identity_file,
             '-o', 'ConnectTimeout={}'.format(config.connect_timeout),
             '-o', 'TCPKeepAlive=yes',
             '-o', 'ServerAliveInterval=30',
