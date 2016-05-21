@@ -77,6 +77,9 @@ class ForwardingLoop(Loop):
             '-o', 'ServerAliveInterval=30',
             '-o', 'ServerAliveCountMax=2',
         ]
+        if not config.strict_host_key_checking:
+            # 来自： http://stackoverflow.com/a/3664010/2815178
+            args += ['-o', 'UserKnownHostsFile=/dev/null', '-o', 'StrictHostKeyChecking=no']
         logger.debug("connecting `{}`".format(" ".join(args)))
         self.connection_proc = sp.Popen(args)
         self.check_connection_timeout_id = self.set_timeout(config.connect_timeout + 0.01, self.check_connection)

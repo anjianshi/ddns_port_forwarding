@@ -35,3 +35,8 @@ reconnect_delay = 60
 
 # 日志文件的缓冲区大小
 log_buffer_size = 2048
+
+# 若为 True，初次连接某主机时，会要求手动输入 yes，以确认主机的 host key
+# （在 daemon 下没法输入，所以会连接失败，在 forgegrand mode （run 命令）下则没问题，因此可以先用 forgegrand 模式连接一次，然后再以 daemon 模式运行）
+# 设为 False 会带来潜在的安全隐患，如果对安全性要求较高，可以设为 True
+strict_host_key_checking = False
