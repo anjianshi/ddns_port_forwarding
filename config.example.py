@@ -22,7 +22,7 @@ remote_ssh_port = 22        # 通过此端口连接外网机器
 ssh_identity_file = None    # （必填）连接外网机器所用的 ssh private key
 connect_timeout = 5
 
-forwarding_host = 'localhost'
+forwarding_host = '127.0.0.1'
 forwarding_local_port = None        # 必填
 forwarding_remote_port = None       # 必填
 
