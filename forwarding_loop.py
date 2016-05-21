@@ -68,14 +68,20 @@ class ForwardingLoop(Loop):
 
         args = [
             'ssh',
-            '-N',   # 使用 -N 参数禁止开启命令行，可以避免一些奇怪的关于输出的问题
-            '-R', "{}:{}:{}".format(str(config.forwarding_remote_port), config.forwarding_host, str(config.forwarding_local_port)),
+            # 使用 -N 参数禁止开启命令行，可以避免一些奇怪的关于输出的问题
+            '-N',
+            # 把 bind_address 设为 0.0.0.0 以使得公网主机是一个路由器时，路由器下属的各设备能通过路由器的 wan IP 访问远程转发的端口。
+            # 如果不这样设，将只能在路由器内部，通过 127.0.0.1 访问远程转发的端口。
+            # 详见 `man ssh` 中对 '-R' 参数的介绍。
+            '-R', "0.0.0.0:{}:{}:{}".format(str(config.forwarding_remote_port), config.forwarding_host, str(config.forwarding_local_port)),
             server, "-p", str(config.remote_ssh_port),
             "-i", config.ssh_identity_file,
             '-o', 'ConnectTimeout={}'.format(config.connect_timeout),
             '-o', 'TCPKeepAlive=yes',
             '-o', 'ServerAliveInterval=30',
             '-o', 'ServerAliveCountMax=2',
+            # 必须设置此项，在远程端口转发时才能成功指定 bind_address
+            '-o', 'GatewayPorts=yes',
         ]
         if not config.strict_host_key_checking:
             # 来自： http://stackoverflow.com/a/3664010/2815178
