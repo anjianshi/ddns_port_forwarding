@@ -8,7 +8,7 @@ ssh 远程端口转发是一种比较简单的实现内网穿透的方式，但�
 
 ### 环境要求
 
-1. 内网机器能够访问外网，能够运行 Python 2.7（OpenWRT 下要求安装 python-light 包）和 SSH（支持 Droptear）
+1. 内网机器能够访问外网，能够运行 Python 2.7（OpenWRT 下要求安装 python-light 包）和 SSH（支持 Droptear），能够运行 dig 命令
 2. 外网机器上要运行 ssh server 以实现端口转发
 3. 一个公网域名
 
